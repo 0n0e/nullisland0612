@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ランダム座標マップ（航空写真モード）</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+    <script>
+      let map;
+
+      function initMap() {
+        const initialPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅
+
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: initialPosition,
+          zoom: 4,
+          mapTypeId: "satellite" // ★ 航空写真モード
+        });
+
+        // 5秒ごとにランダムな位置に移動
+        setInterval(() => {
+          const randomLat = (Math.random() * 180) - 90;
+          const randomLng = (Math.random() * 360) - 180;
+          const newPosition = { lat: randomLat, lng: randomLng };
+          map.panTo(newPosition);
+        }, 5000);
+      }
+
+      window.onload = initMap;
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
